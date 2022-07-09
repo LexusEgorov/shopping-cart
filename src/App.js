@@ -7,7 +7,7 @@ import './styles/App.css';
 function idGenerator(){
   let id = 0;
   return function(){
-    return id++ - 1;
+    return id++;
   }
 }
 
@@ -16,22 +16,32 @@ const getId = new idGenerator();
 function App() {
   const [shoppingItems, setItems] = useState([])
 
-  const addNewPost = (id, name, price) => {
+  const addNewItem = (id, name, price) => {
     setItems([...shoppingItems, 
       {
-        id: id,
+        id: id === '' ? 'Пусто' : id,
         systemId: getId(),
-        name: name,
-        price: price,
+        name: name === '' ? 'Без имени' : name,
+        price: price === '' ? 0 : price,
       }
     ])
     
   };
 
+  const deleteItem = (id) => {
+    const deleteIndex = shoppingItems.findIndex((item) => item.systemId === id);
+    setItems(
+      [
+        ...shoppingItems.slice(0, deleteIndex),
+        ...shoppingItems.slice(deleteIndex + 1)
+      ]
+    );
+  }
+
   return (
     <div className='App'>
-      <MainBlock items={shoppingItems} addFn={addNewPost}/>
-      <ShoppingList items={shoppingItems}/>
+      <MainBlock items={shoppingItems} addFn={addNewItem}/>
+      <ShoppingList items={shoppingItems} deleteFn={deleteItem}/>
     </div>
   );
 }

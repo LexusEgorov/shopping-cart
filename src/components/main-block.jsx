@@ -12,6 +12,8 @@ const MainBlock = ({items, addFn}) => {
     price += item.price * (((100 - discount) / 100).toFixed(2));
   }
 
+  price = isNaN(price) ? 0 : price;
+
   return (
     <div className="main-block">
       <div className="statistics">
@@ -20,15 +22,15 @@ const MainBlock = ({items, addFn}) => {
       </div>
       <div className="controls">
         <form className="add-form">
-          <input type="number" id="id" className="id" min="0" 
+          <input required type="number" id="id" className="id" min="0" 
             value={stateId}
             onChange={(evt) => setId(Number(evt.target.value))} 
             placeholder="id товара"/>
-          <input type="text" id="name" className="name" 
+          <input required type="text" id="name" className="name" 
             value={stateName} 
             onChange={(evt) => setName(evt.target.value)}
             placeholder="Название товара"/>
-          <input type="number" id="price" className="price" min="0" 
+          <input required type="number" id="price" className="price" min="0" 
             value={statePrice} 
             onChange={(evt) => setPrice(Number(evt.target.value))}
             placeholder="Стоимость товара"/>
