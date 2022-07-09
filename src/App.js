@@ -14,18 +14,18 @@ function idGenerator(){
 const getId = new idGenerator();
 
 function App() {
-  const [shoppingItems, setItems] = useState([])
+  const [shoppingItems, setItems] = useState([]);
+  const [discount, setDiscount] = useState(0);
 
   const addNewItem = (id, name, price) => {
     setItems([...shoppingItems, 
       {
-        id: id === '' ? 'Пусто' : id,
+        id: id === '' ? 'Id' : id,
         systemId: getId(),
-        name: name === '' ? 'Без имени' : name,
+        name: name === '' ? 'Name' : name,
         price: price === '' ? 0 : price,
       }
     ])
-    
   };
 
   const deleteItem = (id) => {
@@ -40,8 +40,8 @@ function App() {
 
   return (
     <div className='App'>
-      <MainBlock items={shoppingItems} addFn={addNewItem}/>
-      <ShoppingList items={shoppingItems} deleteFn={deleteItem}/>
+      <MainBlock items={shoppingItems} addFn={addNewItem} discount={discount} discountFn={setDiscount}/>
+      <ShoppingList items={shoppingItems} discount={discount} deleteFn={deleteItem}/>
     </div>
   );
 }

@@ -101,6 +101,17 @@
   border: 2px solid black;
   padding: 10px;
 }
+.shopping-list__item .price-block {
+  display: flex;
+  flex-direction: column;
+  margin-right: auto;
+}
+.shopping-list__item .price-block .old-price {
+  text-decoration: line-through;
+}
+.shopping-list__item .price-block .new-price {
+  color: #ff5e00;
+}
 .shopping-list__item:not(:last-child) {
   margin-bottom: 15px;
 }

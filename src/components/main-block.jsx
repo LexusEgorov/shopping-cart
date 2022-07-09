@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-const MainBlock = ({items, addFn}) => {
+const MainBlock = ({items, addFn, discount, discountFn}) => {
   let price = 0;
-  let discount = 0;
 
+  const [stateDiscount, setDiscount] = useState('');
   const [stateId, setId] = useState('');
   const [stateName, setName] = useState('');
   const [statePrice, setPrice] = useState('');
@@ -19,6 +19,7 @@ const MainBlock = ({items, addFn}) => {
       <div className="statistics">
         <p>Количество: {items.length}</p>
         <p>Стоимость: {price}</p>
+        <p>Скидка: {discount}%</p>
       </div>
       <div className="controls">
         <form className="add-form">
@@ -43,8 +44,19 @@ const MainBlock = ({items, addFn}) => {
           </button>
         </form>
         <div className="discount">
-          <input type="number" min="0" max="100" placeholder="Скидка"/>
-          <button>Установить скидку</button>
+          <input type="number" min="0" max="100" placeholder="Скидка"
+          value={stateDiscount}
+          onChange={(evt) => setDiscount(
+            Number(evt.target.value) > 100 ? 100 :
+              Number(evt.target.value) < 0 ? 0 : Number(evt.target.value)
+            )}
+          />
+          <button 
+            onClick={(evt) => {
+              evt.preventDefault();
+              discountFn(stateDiscount);
+            }
+            }>Установить скидку</button>
           <button>Убрать скидки</button>
         </div>
       </div>
