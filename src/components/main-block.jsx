@@ -57,7 +57,12 @@ const MainBlock = ({items, addFn, discount, discountFn}) => {
               discountFn(stateDiscount);
             }
             }>Установить скидку</button>
-          <button>Убрать скидки</button>
+          <button
+            onClick={(evt) => {
+              evt.preventDefault();
+              discountFn(0);
+            }
+          }>Убрать скидки</button>
         </div>
       </div>
     </div>
